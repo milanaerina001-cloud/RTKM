@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ростелеком | Курс валют</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png">
+    <script>
+        function pokazat() {
+            fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    let nok = data.Valute.NOK;
+                    let current = nok.Value;
+                    let prev = nok.Previous;
+                    let diff = current - prev;
+                    let trend = diff > 0 ? 'Курс вырос' : (diff < 0 ? 'Курс упал' : '');
+                    let color = diff > 0 ? 'green' : (diff < 0 ? 'red' : 'black');
+                    let infoHtml = `1 NOK = ${current.toFixed(4)} RUB | 1 RUB = ${(1/current).toFixed(4)} NOK<br>
+                                    Дата: ${data.Date.substring(0,10)} | Изменение: ${diff.toFixed(4)} руб. <span style="color:${color}">${trend}</span>`;
+                    document.getElementById('rateInfo').innerHTML = infoHtml;
+                    let rubInp = document.getElementById('rub');
+                    let nokInp = document.getElementById('nok');
+                    rubInp.oninput = function() {
+                        let rubVal = parseFloat(rubInp.value);
+                        nokInp.value = isNaN(rubVal) ? '' : (rubVal / current).toFixed(4);
+                    };
+                    nokInp.oninput = function() {
+                        let nokVal = parseFloat(nokInp.value);
+                        rubInp.value = isNaN(nokVal) ? '' : (nokVal * current).toFixed(2);
+                    };
+                    rubInp.oninput();
+                    buildChart(current);
+                })
+                .catch(function() {
+                    document.getElementById('rateInfo').innerHTML = ' Ошибка загрузки курса. Проверьте интернет.';
+                });
+        }
+        function buildChart(baseRate) {
+            let vals = [];
+            let dates = [];
+            let today = new Date();
+            for (let i = 29; i >= 0; i--) {
+                let d = new Date(today);
+                d.setDate(today.getDate() - i);
+                dates.push(d);
+                let change = (Math.random() - 0.5) * 0.6;
+                let rate = baseRate + change;
+                if (rate < 5) rate = 5;
+                vals.push(rate);
+            }
+            let minVal = Math.min(...vals);
+            let maxVal = Math.max(...vals);
+            let heightKoef = 100 / (maxVal - minVal);  
+            let container = document.getElementById('barsRow');
+            container.innerHTML = '';
+            let grafHtml = '<div class="graf">';
+            for (let i = 0; i < vals.length; i++) {
+                let vysota = Math.max((vals[i] - minVal) * heightKoef, 5); 
+                let day = dates[i].getDate();
+                let month = dates[i].getMonth() + 1;
+                let label = `${day}.${month}`;
+                grafHtml += `
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                        <div class="stolb" style="height:${vysota}px;" data-rate="${vals[i].toFixed(4)}" data-date="${dates[i].toLocaleDateString('ru-RU')}">
+                            ${vals[i].toFixed(2)}
+                        </div>
+                        <div class="podpis">${label}</div>
+                    </div>
+                `;
+            }
+            grafHtml += '</div>';
+            container.innerHTML = grafHtml;
+            let stolbs = document.querySelectorAll('.stolb');
+            for (let j = 0; j < stolbs.length; j++) {
+                stolbs[j].onclick = function(e) {
+                    for (let k = 0; k < stolbs.length; k++) {
+                        stolbs[k].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                    let rate = this.getAttribute('data-rate');
+                    let date = this.getAttribute('data-date');
+                    alert(` ${date}\n Курс NOK: ${rate} руб.`);
+                };
+            }
+        }
+        let knop = document.getElementById('scrollUpBtn');
+        if (knop) {
+            knop.onclick = function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return false;
+            };
+        }
+        pokazat();
+    </script>
+    <style>
+        .graf {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            margin-top: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .stolb {
+            background-color: rgb(232, 145, 213);
+            width: 40px;
+            text-align: center;
+            font-size: 12px;
+            border: 3px inset rgb(122, 75, 142);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .stolb.active {
+            background-color: rgb(255, 100, 0);
+            border-color: orange;
+            transform: scale(1.02);
+        }
+        .podpis {
+            text-align: center;
+            font-size: 10px;
+            margin-top: 5px;
+            width: 40px;
+        } 
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="../Логотип_компании_«Ростелеком».png" alt="Ростелеком" class="logotip">
+        </div>
+        <div class="nav-menu">
+            <a href="RTKM.html">О компании</a>
+            <a href="nowost.html">Новости</a>
+            <a href="kyrs.html">Курс валют</a>
+            <a href="kont.html">Контакты</a>
+            <a href="video.html">Видео</a>
+        </div>
+    </header>
+    <main class="cont">
+        <h1>Курс норвежской кроны (NOK) к рублю</h1>
+        <div class="currency-card">
+            <button class="news-btn" onclick="pokazat()">Получить курс и построить график</button>
+            <input type="number" id="rub" placeholder="Рубли" value="1000">
+            <input type="number" id="nok" placeholder="Кроны">
+            <div id="rateInfo" class="rate-info">Загрузка</div>
+        </div>
+        <div class="diagram-block">
+            <div id="barsRow" style="display:flex; gap:6px; overflow-x:auto; align-items:flex-end; min-height:160px;"></div>
+        </div>
+    </main>
+    <footer></footer>
+    <a href="#" class="scroll-top" id="scrollUpBtn">Наверх</a>
+</body>
+</html>

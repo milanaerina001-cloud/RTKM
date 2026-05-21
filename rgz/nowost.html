@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ростелеком | Новости</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png">
+    <script src="nowosty.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let container = document.getElementById('newsContainer');
+            if (container) {
+                container.innerHTML = '';
+                for (let i = 0; i < newsList.length; i++) {
+                    let news = newsList[i];
+                    let card = document.createElement('div');
+                    card.className = 'news-card';
+                    card.innerHTML = '<div class="news-date">' + news.date + '</div>' +
+                        '<div class="news-title">' + news.title + '</div>' +
+                        '<div class="news-short">' + news.short + '</div>' +
+                        '<button class="news-btn" data-idx="' + i + '">Показать полностью</button>';
+                    container.appendChild(card);
+                }
+                let buttons = document.querySelectorAll('.news-btn');
+                for (let j = 0; j < buttons.length; j++) {
+                    buttons[j].onclick = function(e) {
+                        let idx = e.target.getAttribute('data-idx');
+                        let news = newsList[idx];
+                        let card = e.target.closest('.news-card');
+                        let fullDiv = card.querySelector('.news-full');
+                        if (fullDiv) {
+                            fullDiv.remove();
+                            e.target.innerText = 'Показать полностью';
+                        } else {
+                            let fullTextDiv = document.createElement('div');
+                            fullTextDiv.className = 'news-full';
+                            fullTextDiv.innerText = news.full;
+                            card.appendChild(fullTextDiv);  
+                            e.target.innerText = 'Скрыть';
+                        }
+                    };
+                }
+            }
+            let knop = document.getElementById('scrollUpBtn');
+            if (knop) {
+                knop.onclick = function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return false;
+                };
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="../Логотип_компании_«Ростелеком».png" alt="Ростелеком" class="logotip">
+        </div>
+        <div class="nav-menu">
+            <a href="RTKM.html">О компании</a>
+            <a href="nowost.html">Новости</a>
+            <a href="kyrs.html">Курс валют</a>
+            <a href="kont.html">Контакты</a>
+            <a href="video.html">Видео</a>
+        </div>
+    </header>
+
+    <main class="cont">
+        <h1>Новости компании</h1>
+        <div id="newsContainer" class="news-grid"></div>
+    </main>
+    <footer>
+        
+    </footer>
+    <a href="#" class="scroll-top" id="scrollUpBtn">Наверх</a>
+</body>
+</html>

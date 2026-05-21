@@ -1,0 +1,205 @@
+.logotip {
+    height: 48px;
+    width: auto;
+}
+.nav-menu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 2px;
+    padding: 25px;
+    background: linear-gradient(to right,
+    rgb(31, 72, 255),rgb(138, 22, 255),
+    rgb(239, 58, 255),rgb(255, 56, 136),
+    rgb(255, 76, 22));
+    border-radius: 9px;
+}
+.nav-menu::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+    background: linear-gradient(to right,
+    rgb(255, 76, 22),rgb(255, 56, 136),
+    rgb(239, 58, 255),rgb(138, 22, 255),
+    rgb(31, 72, 255));
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 1;
+}
+.nav-menu:hover::before {
+    opacity: 1;
+}
+.nav-menu a,
+.nav-menu button {
+    position: relative;
+    z-index: 2;
+}
+.nav-menu a,
+.nav-menu button {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+    transition: opacity 0.2s;
+    font-family: 'Montserrat', 'RT Fonts', Arial, Helvetica, sans-serif;
+}
+.cont {
+    font-family: 'Montserrat', 'RT Fonts', Arial, Helvetica, sans-serif;
+    line-height: 1.5;  
+    text-indent: 24px;
+}
+.highlight {
+    text-indent: 0; 
+}
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(139, 50, 186);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 100;
+    font-family: 'Montserrat', 'RT Fonts', Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+.news-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+.news-card {
+    flex: 1 1 350px;
+}
+.news-card {
+    background: rgb(249, 234, 255);
+    border-radius: 20px;
+    padding: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 5px inset rgb(122, 75, 142);
+}
+.news-card:hover {
+    transform: translateY(-4px);
+}
+.news-date {
+    font-size: 15px;
+    color: rgb(255, 137, 47);
+    font-weight: bold;
+    margin-bottom: 10px;
+    
+}
+.news-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px;
+    color: rgb(0, 0, 0);
+    line-height: 1.5;
+}
+.news-short {
+    color: rgb(60, 12, 55);
+    line-height: 1.4;
+    margin-bottom: 16px;
+    text-indent: 0;
+}
+button.news-btn {
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 12px;
+    padding: 6px 18px;
+    background: linear-gradient(to right,
+    rgb(31, 72, 255), rgb(138, 22, 255),
+    rgb(239, 58, 255), rgb(255, 56, 136),
+    rgb(255, 76, 22));
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 14px;
+    font-family: 'Montserrat', 'RT Fonts', Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+button.news-btn:hover {
+    background: linear-gradient(to right,
+    rgb(255, 76, 22), rgb(255, 56, 136),
+    rgb(239, 58, 255), rgb(138, 22, 255),
+    rgb(31, 72, 255)); 
+}
+.news-full {
+    font-family: 'Montserrat', 'RT Fonts', Arial, Helvetica, sans-serif;
+    line-height: 1.5;  
+    text-indent: 24px;
+    color: rgb(11, 8, 47);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: opacity 0.2s;
+}
+.contacts-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 30px 0;
+}
+.contacts-info {
+    flex: 1;
+    min-width: 260px;
+    background: linear-gradient(to right,
+    rgb(170, 186, 255),rgb(210, 165, 255),
+    rgb(247, 166, 255),rgb(255, 169, 204),
+    rgb(255, 190, 170));
+    border: 4px ridge rgb(176, 95, 220);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgb(31, 3, 3);
+}
+.contacts-info h2 {
+    color: rgb(47, 20, 59);
+    margin-top: 0;
+    padding-left: 10px;
+}
+.contacts-info p {
+    margin: 10px ;
+    line-height: 1.5;
+}
+.contacts-info strong {
+    color: rgb(41, 12, 51);
+}
+.office-emails {
+    
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.office-emails h3 {
+    color: rgb(41, 12, 51);
+}
+.office-emails ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.office-emails li {
+    margin: 8px 0;
+}
+.office-emails a {
+    color: rgb(82, 42, 147);
+    text-decoration: none;
+}
+.map-frame {
+    flex: 1.5;
+    min-width: 300px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+.map-frame iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+    display: block;
+}

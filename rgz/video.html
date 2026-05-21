@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ростелеком | О компании</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png">
+    <script>
+        const knop = document.getElementById('scrollUpBtn');
+        if (knop) {
+            knop.onclick = function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return false;
+            };
+        }
+    </script>
+    <style>
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 506px;
+            border: 0;
+            display: block;
+        }
+        .video-caption {
+            margin-top: 15px;
+            color: rgb(40, 15, 47);
+            font-size: 20px;
+            background-color: rgb(207, 172, 239);
+            border-radius: 7px;
+        }
+        
+    </style>
+<body>
+    <header class="main-header">
+    <div class="logo-area">
+        <img src="../Логотип_компании_«Ростелеком».png" alt="Ростелеком" class="logotip">
+    </div>
+    <div class="nav-menu">
+        <a href="RTKM.html">О компании</a>
+        <a href="nowost.html">Новости</a>
+        <a href="kyrs.html">Курс валют</a>
+        <a href="kont.html">Контакты</a>
+        <a href="video.html">Видео</a>
+    </div>
+</header>
+<main class="cont">
+        <h1>Новогоднее поздравление защитника Караваева Вячеслава от Ростелекома</h1>
+        <div class="video-container">
+            <div class="video-wrapper">
+                <iframe src="https://vkvideo.ru/video_ext.php?oid=-24720111&id=456244166&hash=44493016d243f812&hd=4" width="1920" height="1080" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+        <hr color="black">
+        <p class="video-caption">Мы завершаем нашу серию поздравлений 
+            историей человека, для которого редкие минуты дома 
+            особенно ценны.Узнайте в новом ролике, 
+            почему защитник ФК «Зенит» Вячеслав Караваев 
+            старается каждый Новый год встречать в кругу 
+            семьи.</p>
+    </main>
+
+    <footer>
+       
+    </footer>
+    <a href="#" class="scroll-top" id="scrollUpBtn">Наверх</a>
+</body>
+</html>
